@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     fetchPortfolioData();
-  }, [fetchPortfolioData]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -59,9 +59,9 @@ function App() {
           </p>
 
           <nav className="mb-8">
-            <ul className="flex gap-6">
-              {portfolioData.navLinks.map((navLink, index) => (
-                <li key={index}>
+          <ul className="flex gap-6">
+            {portfolioData.navLinks.map((navLink) => (
+              <li key={navLink.link}>
                   <a
                     href={navLink.link}
                     className="text-blue-600 hover:text-blue-800 font-medium"

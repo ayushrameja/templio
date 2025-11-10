@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import type { PortfolioData } from '../types/portfolio';
 
 interface JSONEditorPopupProps {
-  jsonData: object;
-  onSave: (data: object) => void;
+  jsonData: PortfolioData;
+  onSave: (data: PortfolioData) => void;
   onClose: () => void;
 }
 
@@ -23,7 +24,9 @@ export function JSONEditorPopup({
       setError(null);
       onClose();
     } catch (err) {
-      setError('Invalid JSON format. Please check your syntax.');
+      setError(
+        `Invalid JSON format: ${err instanceof Error ? err.message : 'Please check your syntax.'}`
+      );
     }
   };
 

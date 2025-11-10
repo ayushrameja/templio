@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { JSONEditorPopup } from './JSONEditorPopup';
 import { usePortfolioStore } from '../store/portfolioStore';
+import type { PortfolioData } from '../types/portfolio';
 
 export function DebugBar() {
   const [showJsonEditor, setShowJsonEditor] = useState(false);
@@ -12,8 +13,8 @@ export function DebugBar() {
     return null;
   }
 
-  const handleSaveJson = (data: object) => {
-    updatePortfolioData(data as any);
+  const handleSaveJson = (data: PortfolioData) => {
+    updatePortfolioData(data);
   };
 
   return (

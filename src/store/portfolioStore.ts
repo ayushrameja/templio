@@ -1,24 +1,5 @@
 import { create } from 'zustand';
-
-interface NavLink {
-  title: string;
-  link: string;
-}
-
-interface ThemeColors {
-  primary: string;
-  secondary: string;
-  accent: string;
-  background: string;
-  text: string;
-}
-
-interface PortfolioData {
-  name: string;
-  description: string;
-  navLinks: NavLink[];
-  themeColors: ThemeColors;
-}
+import type { PortfolioData } from '../types/portfolio';
 
 interface PortfolioStore {
   portfolioData: PortfolioData | null;
@@ -34,9 +15,9 @@ export const usePortfolioStore = create<PortfolioStore>((set, get) => ({
   error: null,
 
   fetchPortfolioData: async () => {
-    const { portfolioData } = get();
-
-    if (portfolioData) {
+    const { portfolioData, isLoading } = get();
+    
+    if (portfolioData || isLoading) {
       return;
     }
 
