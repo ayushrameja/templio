@@ -43,7 +43,7 @@ export function JSONEditorPopup({
         onClick={(e) => e.stopPropagation()}
       >
         <div
-          className="flex items-center justify-between px-4 py-3 border-b border-[#3e3e3e] bg-[#252526] shrink-0"
+          className="flex items-center justify-between border-b border-[#3e3e3e] bg-[#252526] shrink-0"
           style={{ padding: '0.5rem 0.75rem' }}
         >
           <h2 className="text-sm font-semibold text-[#cccccc]">
@@ -90,19 +90,19 @@ export function JSONEditorPopup({
         </div>
 
         <div
-          className="flex items-center justify-end gap-3 px-4 py-3 border-t border-[#3e3e3e] bg-[#252526] shrink-0"
+          className="flex items-center justify-end gap-3 border-t border-[#3e3e3e] bg-[#252526] shrink-0"
           style={{ padding: '0.5rem 0.75rem' }}
         >
           <button
             onClick={onClose}
-            className="px-4 py-2 text-[#cccccc] bg-[#3e3e3e] hover:bg-[#505050] rounded text-sm transition-colors cursor-pointer"
+            className="text-[#cccccc] bg-[#3e3e3e] hover:bg-[#505050] rounded text-sm transition-colors cursor-pointer"
             style={{ padding: '0.25rem 0.5rem' }}
           >
             Close
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-2 text-white bg-[#0e639c] hover:bg-[#1177bb] rounded text-sm transition-colors cursor-pointer"
+            className="text-white bg-[#0e639c] hover:bg-[#1177bb] rounded text-sm transition-colors cursor-pointer"
             style={{ padding: '0.25rem 0.5rem' }}
           >
             Save Changes

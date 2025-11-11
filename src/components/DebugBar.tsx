@@ -44,7 +44,7 @@ export function DebugBar() {
             </div>
             <button
               onClick={() => setShowJsonEditor(true)}
-              className="px-2 py-1.5 sm:px-3 sm:py-2 md:px-4 bg-white/15 hover:bg-white/10 rounded text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+              className="bg-white/15 hover:bg-white/10 rounded text-xs sm:text-sm font-medium transition-colors cursor-pointer"
               style={{ padding: '0.25rem 0.5rem' }}
             >
               <span className="hidden sm:inline">JSON Config</span>
