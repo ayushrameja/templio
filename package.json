@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release:patch": "npm version patch -m 'chore(release): %s'",
+    "release:minor": "npm version minor -m 'chore(release): %s'",
+    "release:major": "npm version major -m 'chore(release): %s'",
+    "deploy:staging": "echo 'Deploy to staging environment'",
+    "deploy:prod": "echo 'Deploy to production environment'"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
