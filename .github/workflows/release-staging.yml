@@ -3,7 +3,7 @@ name: Release Staging
 on:
   push:
     branches:
-      - staging
+      - stg
 
 permissions:
   contents: write
@@ -11,7 +11,7 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: ${{ !contains(github.event.head_commit.message, 'chore(release):') }}
+    if: ${{ github.event.head_commit.author.name != 'github-actions' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
