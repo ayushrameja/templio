@@ -40,7 +40,9 @@ jobs:
       - name: Get PR number from merge commit
         id: get_pr
         run: |
-          PR_NUMBER=$(git log -1 --pretty=%B | grep -oP '#\K\d+' || echo "")
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          echo "Commit message: $COMMIT_MSG"
+          PR_NUMBER=$(echo "$COMMIT_MSG" | grep -o '#[0-9]\+' | grep -o '[0-9]\+' || echo "")
           echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
           echo "Found PR number: $PR_NUMBER"
 
