@@ -1,0 +1,12 @@
+- name: version:major
+  color: d73a4a
+  description: Breaking changes - bumps major version (x.0.0)
+
+- name: version:minor
+  color: 0e8a16
+  description: New features - bumps minor version (0.x.0)
+
+- name: version:patch
+  color: fbca04
+  description: Bug fixes and small changes - bumps patch version (0.0.x)
+
