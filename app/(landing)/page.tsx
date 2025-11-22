@@ -1,4 +1,6 @@
-export default function Home() {
+import { APP_NAME, APP_DESCRIPTION, LAUNCH_DATE } from "@/constants";
+
+export default function LandingPage() {
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-zinc-950 px-6 py-24 text-zinc-100">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(125,211,252,0.25),transparent_55%)]" />
@@ -8,12 +10,12 @@ export default function Home() {
             Coming Soon
           </span>
           <span className="text-sm text-zinc-400">
-            Alpha launches Early 2026
+            Alpha launches {LAUNCH_DATE}
           </span>
         </div>
         <div className="space-y-6">
           <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-            Templio is shaping the future of personal portfolios.
+            {APP_NAME} is {APP_DESCRIPTION.toLowerCase()}.
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-zinc-300 sm:text-xl">
             A new way to craft a standout presence online. Effortless
