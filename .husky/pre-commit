@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+echo "\n📝 Checking linting..."
+pnpm lint || {
+  echo "❌ Linting failed! Please fix the errors above."
+  exit 1
+}
+
+echo "\n✅ Linting passed!"
+
+echo "\n🧪 Running tests..."
+pnpm test || {
+  echo "❌ Tests failed!"
+  exit 1
+}
+
+echo "\n✅ Tests passed!"
+
+echo "\n📊 Test coverage:"
+pnpm test:coverage
+
+echo "\n🎨 Running lint-staged (formatting & auto-fixes)..."
+pnpm lint-staged
+
