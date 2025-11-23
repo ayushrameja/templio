@@ -1,12 +1,37 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
-import { Container, SeparatedLinks, NavLink } from "@/components/ui";
+import {
+  Container,
+  SeparatedLinks,
+  NavLink,
+  VideoBackground,
+} from "@/components/ui";
 
 export default function LandingPage() {
+  const [showBackground, setShowBackground] = useState(false);
+
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <nav className="w-full">
+    <div className="relative flex min-h-screen w-full flex-col">
+      {showBackground && (
+        <VideoBackground
+          src="/clouds-bg.mp4"
+          poster="/preview-clouds.png"
+          onPosterLoaded={() => {}}
+        />
+      )}
+
+      <motion.nav
+        className="relative z-10 w-full"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        onAnimationComplete={() => {}}
+      >
         <Container
           size="lg"
           className="flex items-center justify-between py-4 sm:py-5 md:py-6"
@@ -34,57 +59,73 @@ export default function LandingPage() {
             <NavLink href="/">Contact</NavLink>
           </SeparatedLinks>
         </Container>
-      </nav>
+      </motion.nav>
 
-      <main className="flex w-full flex-1 items-center justify-center px-4 py-16 sm:py-20 md:py-24">
+      <main className="relative z-10 flex w-full flex-1 items-center justify-center px-4 py-16 sm:py-20 md:py-24">
         <Container
           size="sm"
-          className="space-y-10 text-center sm:space-y-12 md:space-y-14"
+          className="space-y-4 text-center sm:space-y-6 md:space-y-8"
         >
-          <div className="space-y-6 sm:space-y-7 md:space-y-8">
-            <h1 className="font-display text-5xl leading-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+          <div className="space-y-4 sm:space-y-5 md:space-y-6">
+            <motion.h1
+              className="font-display text-5xl leading-tight text-white sm:text-6xl md:text-7xl lg:text-8xl"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               Templio
-            </h1>
-            <p className="mx-auto max-w-xl text-base leading-relaxed text-zinc-300 sm:max-w-2xl sm:text-lg md:text-xl lg:text-2xl">
+            </motion.h1>
+            <motion.p
+              className="mx-auto max-w-xl text-base leading-relaxed text-zinc-300 sm:max-w-2xl sm:text-lg md:text-xl lg:text-2xl"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
               A fully customisable personal site builder
               <br className="hidden sm:inline" />
               <span className="sm:hidden"> </span>
               no templates, just your taste.
-            </p>
+            </motion.p>
           </div>
 
-          <form className="mx-auto w-full max-w-xs sm:max-w-md md:max-w-lg">
-            <div className="relative flex items-center gap-2 rounded-full bg-white/5 p-1.5 backdrop-blur-sm sm:p-2">
+          <motion.form
+            className="mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            onAnimationComplete={() => setShowBackground(true)}
+          >
+            <div className="relative flex items-center gap-2 rounded-md bg-zinc-900/80 p-1.5 backdrop-blur-md sm:p-2">
               <input
                 type="email"
                 placeholder="Join the waitlist"
-                className="flex-1 bg-transparent px-4 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:outline-none sm:px-5 sm:py-3 sm:text-base md:px-6"
+                className="flex-1 bg-transparent px-1 py-2.5 text-lg text-white placeholder:text-zinc-500 focus:outline-none sm:px-2 sm:py-3 sm:text-base md:px-3"
                 required
               />
               <button
                 type="submit"
-                className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full bg-white text-zinc-900 transition-all hover:scale-105 hover:bg-zinc-100 sm:h-11 sm:w-11 md:h-12 md:w-12"
+                className="flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-md bg-white text-zinc-900 transition-all hover:scale-105 hover:bg-zinc-100 sm:h-8 sm:w-8 md:h-9 md:w-9"
                 aria-label="Submit"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <Image
+                  src="/bell.svg"
+                  alt="Notify"
+                  width={16}
+                  height={16}
+                  className="h-4 w-4 sm:h-5 sm:w-5"
+                />
               </button>
             </div>
-          </form>
+          </motion.form>
         </Container>
       </main>
 
-      <footer className="w-full">
+      <motion.footer
+        className="relative z-10 w-full"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.9 }}
+      >
         <Container
           size="lg"
           className="flex flex-col items-center justify-between gap-4 py-6 text-sm sm:flex-row sm:gap-0 sm:py-8 sm:text-base"
@@ -92,7 +133,7 @@ export default function LandingPage() {
           <NavLink href="https://www.ayush.im">About Developer</NavLink>
           <NavLink href="/">Templio © 2025</NavLink>
         </Container>
-      </footer>
+      </motion.footer>
     </div>
   );
 }
