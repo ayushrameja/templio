@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter_Tight, Style_Script } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "@/providers/ConvexClientProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const styleScript = Style_Script({
+  variable: "--font-style-script",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${interTight.variable} ${styleScript.variable} antialiased`}
       >
         <ConvexClientProvider>{children}</ConvexClientProvider>
       </body>
