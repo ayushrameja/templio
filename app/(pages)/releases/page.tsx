@@ -119,29 +119,31 @@ export default function ReleasesPage() {
               </div>
 
               {release.body && (
-                <div className="prose prose-invert max-w-none text-zinc-300">
+                <div className="prose prose-invert max-w-none text-zinc-300 overflow-hidden wrap-break-word">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
                       h2: ({ children }) => (
-                        <h2 className="mt-6 mb-3 text-xl font-bold text-white">
+                        <h2 className="mt-6 mb-3 text-xl font-bold text-white wrap-break-word">
                           {children}
                         </h2>
                       ),
                       h3: ({ children }) => (
-                        <h3 className="mt-4 mb-2 text-lg font-semibold text-white">
+                        <h3 className="mt-4 mb-2 text-lg font-semibold text-white wrap-break-word">
                           {children}
                         </h3>
                       ),
                       p: ({ children }) => (
-                        <p className="mb-3 text-zinc-300">{children}</p>
+                        <p className="mb-3 text-zinc-300 wrap-break-word">
+                          {children}
+                        </p>
                       ),
                       a: ({ href, children }) => (
                         <a
                           href={href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sky-400 hover:text-sky-300 underline"
+                          className="text-sky-400 hover:text-sky-300 underline break-all"
                         >
                           {children}
                         </a>
@@ -152,12 +154,24 @@ export default function ReleasesPage() {
                         </ul>
                       ),
                       li: ({ children }) => (
-                        <li className="text-zinc-300">{children}</li>
+                        <li className="text-zinc-300 wrap-break-word">
+                          {children}
+                        </li>
                       ),
                       strong: ({ children }) => (
-                        <strong className="font-semibold text-white">
+                        <strong className="font-semibold text-white wrap-break-word">
                           {children}
                         </strong>
+                      ),
+                      code: ({ children }) => (
+                        <code className="break-all bg-zinc-800 px-1.5 py-0.5 rounded text-sm">
+                          {children}
+                        </code>
+                      ),
+                      pre: ({ children }) => (
+                        <pre className="overflow-x-auto bg-zinc-800 p-4 rounded-lg">
+                          {children}
+                        </pre>
                       ),
                     }}
                   >

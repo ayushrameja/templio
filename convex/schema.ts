@@ -8,4 +8,9 @@ export default defineSchema({
     message: v.string(),
     createdAt: v.number(),
   }),
+  waitlist: defineTable({
+    email: v.string(),
+    createdAt: v.number(),
+    status: v.optional(v.string()),
+  }).index("by_email", ["email"]),
 });

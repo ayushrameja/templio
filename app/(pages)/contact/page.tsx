@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui";
 import { useState } from "react";
-import { useMutation } from "convex/react";
+import { useMutation, useAction } from "convex/react";
+import { toast, Toaster } from "sonner";
 import { api } from "@/convex/_generated/api";
 
 export default function ContactPage() {
@@ -17,6 +18,7 @@ export default function ContactPage() {
   >("idle");
 
   const createContact = useMutation(api.contacts.create);
+  const sendNotificationEmail = useAction(api.contacts.sendNotificationEmail);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,14 +31,26 @@ export default function ContactPage() {
         message: formData.message,
       });
 
+      try {
+        await sendNotificationEmail({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        });
+      } catch (emailError) {
+        console.warn("Failed to send notification email:", emailError);
+      }
+
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
+      toast.success("Message sent successfully! I'll get back to you soon.");
 
-      setTimeout(() => setStatus("idle"), 5000);
+      setTimeout(() => setStatus("idle"), 3000);
     } catch (error) {
       setStatus("error");
       console.error(error);
-      setTimeout(() => setStatus("idle"), 5000);
+      toast.error("Failed to send message. Please try again.");
+      setTimeout(() => setStatus("idle"), 3000);
     }
   };
 
@@ -51,6 +65,7 @@ export default function ContactPage() {
 
   return (
     <div className="relative min-h-screen w-full bg-black">
+      <Toaster position="bottom-right" richColors closeButton theme="dark" />
       <Container size="md" className="relative z-10 py-20 sm:py-24 md:py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -141,26 +156,6 @@ export default function ContactPage() {
               >
                 {status === "loading" ? "Sending..." : "Send Message"}
               </button>
-
-              {status === "success" && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-4 text-center text-emerald-400"
-                >
-                  Message sent successfully! I&apos;ll get back to you soon.
-                </motion.div>
-              )}
-
-              {status === "error" && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="rounded-lg border border-red-500/20 bg-red-500/10 p-4 text-center text-red-400"
-                >
-                  Failed to send message. Please try again.
-                </motion.div>
-              )}
             </div>
           </form>
 
