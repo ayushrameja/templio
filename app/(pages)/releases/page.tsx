@@ -1,8 +1,11 @@
 "use client";
 
+import remarkGfm from "remark-gfm";
 import { motion } from "framer-motion";
-import { Container } from "@/components/ui";
+import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
+
+import { Container } from "@/components/ui";
 
 interface Release {
   id: number;
@@ -117,17 +120,49 @@ export default function ReleasesPage() {
 
               {release.body && (
                 <div className="prose prose-invert max-w-none text-zinc-300">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: release.body
-                        .replace(/\n/g, "<br/>")
-                        .replace(
-                          /\*\*(.+?)\*\*/g,
-                          '<strong class="text-white">$1</strong>'
-                        )
-                        .replace(/\* (.+?)$/gm, '<li class="ml-4">$1</li>'),
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      h2: ({ children }) => (
+                        <h2 className="mt-6 mb-3 text-xl font-bold text-white">
+                          {children}
+                        </h2>
+                      ),
+                      h3: ({ children }) => (
+                        <h3 className="mt-4 mb-2 text-lg font-semibold text-white">
+                          {children}
+                        </h3>
+                      ),
+                      p: ({ children }) => (
+                        <p className="mb-3 text-zinc-300">{children}</p>
+                      ),
+                      a: ({ href, children }) => (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sky-400 hover:text-sky-300 underline"
+                        >
+                          {children}
+                        </a>
+                      ),
+                      ul: ({ children }) => (
+                        <ul className="mb-3 list-disc pl-6 space-y-1">
+                          {children}
+                        </ul>
+                      ),
+                      li: ({ children }) => (
+                        <li className="text-zinc-300">{children}</li>
+                      ),
+                      strong: ({ children }) => (
+                        <strong className="font-semibold text-white">
+                          {children}
+                        </strong>
+                      ),
                     }}
-                  />
+                  >
+                    {release.body}
+                  </ReactMarkdown>
                 </div>
               )}
             </motion.div>

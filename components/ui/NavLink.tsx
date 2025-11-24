@@ -10,16 +10,33 @@ interface NavLinkProps extends ComponentProps<typeof Link> {
 
 export function NavLink({ children, href, ...props }: NavLinkProps) {
   const pathname = usePathname();
-  const isActive = pathname === href || pathname.startsWith(`${href}/`);
+  const hrefString = typeof href === "string" ? href : href?.toString() || "";
+  const isExternal =
+    hrefString.startsWith("http://") || hrefString.startsWith("https://");
+  const isActive =
+    !isExternal &&
+    (pathname === hrefString || pathname.startsWith(`${hrefString}/`));
+
+  const className = `group relative inline-block transition-colors hover:text-white ${
+    isActive ? "font-bold text-white" : ""
+  }`;
+
+  if (isExternal) {
+    return (
+      <a
+        href={hrefString}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {children}
+        <span className="absolute bottom-0 left-0 h-px w-full bg-white transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100" />
+      </a>
+    );
+  }
 
   return (
-    <Link
-      href={href}
-      {...props}
-      className={`group relative inline-block transition-colors hover:text-white ${
-        isActive ? "font-bold text-white" : ""
-      }`}
-    >
+    <Link href={href} {...props} className={className}>
       {children}
       <span
         className={`absolute bottom-0 left-0 h-px w-full bg-white transition-transform duration-300 ease-out ${
